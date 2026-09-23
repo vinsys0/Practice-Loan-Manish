@@ -1,5 +1,6 @@
 using LoanProcessingApp.Services;
 using LoanProcessingApp.Validation;
+using LoanProcessingApp.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,6 +19,12 @@ namespace LoanProcessingApp
 
             builder.Services.AddScoped<ILoanApplicationValidator, LoanApplicationValidator>();
             builder.Services.AddScoped<ILoanApplicationService, LoanApplicationService>();
+
+            builder.Services.AddSingleton<ILoanProcessingRepository, LoanProcessingRepository>();
+            builder.Services.AddScoped<ILenderService, LenderService>();
+            builder.Services.AddScoped<IBorrowerService, BorrowerService>();
+            builder.Services.AddScoped<ILoanBookingService, LoanBookingService>();
+            builder.Services.AddScoped<ILoanApprovalService, LoanApprovalService>();
 
             var app = builder.Build();
 
